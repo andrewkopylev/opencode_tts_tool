@@ -1,0 +1,19 @@
+# Auto-generated config with credentials
+say_config.json
+
+# Documentation (archived in docs/)
+docs/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+*.egg-info/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
