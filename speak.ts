@@ -21,9 +21,9 @@ function findPython(): string {
 
 function findScript(dir: string): string {
     const candidates = [
-        path.join(os.homedir(), ".config", "opencode", "tools", "say.py"),
-        path.join(dir, "say.py"),
-        path.join(dir, ".opencode", "tools", "say.py"),
+        path.join(os.homedir(), ".config", "opencode", "tools", "speak.py"),
+        path.join(dir, "speak.py"),
+        path.join(dir, ".opencode", "tools", "speak.py"),
     ]
     for (const p of candidates) {
         if (existsSync(p)) return p
@@ -31,10 +31,10 @@ function findScript(dir: string): string {
     return candidates[0]
 }
 
-async function callSay(text: string, directory: string) {
+async function callSpeak(text: string, directory: string) {
     const python = findPython()
     const script = findScript(directory)
-    const payload = JSON.stringify({ command: "say", text })
+    const payload = JSON.stringify({ command: "speak", text })
 
     let stdout = ""
     let stderr = ""
@@ -53,12 +53,12 @@ async function callSay(text: string, directory: string) {
         stdout = await new Response(proc.stdout).text()
         stderr = await new Response(proc.stderr).text()
     } catch (e: any) {
-        return `say: spawn failed: ${e.message || e}`
+        return `speak: spawn failed: ${e.message || e}`
     }
 
     if (exitCode !== 0) {
         const detail = stderr.trim() || stdout.trim() || "(no output)"
-        return `say: exit ${exitCode}: ${detail}`
+        return `speak: exit ${exitCode}: ${detail}`
     }
     return stdout.trim()
 }
@@ -67,7 +67,7 @@ async function callSay(text: string, directory: string) {
 // Tool definition
 // ---------------------------------------------------------------------------
 
-export const say = tool({
+export const speak = tool({
     description:
         "Convert text to speech and play it to the user.\n" +
         "(IMPORTANT) The input text MUST be a concise summary if the content is long. " +
@@ -83,6 +83,6 @@ export const say = tool({
             ),
     },
     async execute(args, context) {
-        return await callSay(args.text, context.directory)
+        return await callSpeak(args.text, context.directory)
     },
 })

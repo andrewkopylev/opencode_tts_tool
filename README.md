@@ -1,8 +1,8 @@
-# OpenCode Say (TTS) Tool
+# OpenCode Speak (TTS) Tool
 
 Voice output for [OpenCode](https://opencode.ai) — the AI assistant can speak to the user via a TTS model, reading out answers, notifications, and task results.
 
-The `say` tool takes text, sends it to an OpenAI-compatible TTS API, receives audio, and plays it through a system audio player. The LLM is instructed to **summarize long text automatically** — full text is read aloud only when the user explicitly asks for it.
+The `speak` tool takes text, sends it to an OpenAI-compatible TTS API, receives audio, and plays it through a system audio player. The LLM is instructed to **summarize long text automatically** — full text is read aloud only when the user explicitly asks for it.
 
 ## Features
 
@@ -35,13 +35,13 @@ The installer will:
 1. Detect system Python 3
 2. Create or reuse a venv at `~/.config/opencode/tools/venv/`
 3. Install `openai` into the venv
-4. Copy `say.ts`, `say.py` to `~/.config/opencode/tools/`
+4. Copy `speak.ts`, `speak.py` to `~/.config/opencode/tools/`
 5. **Interactively** ask for TTS API credentials:
    - Base URL (default: `https://routerai.ru/api/v1`)
    - API Key
    - Model ID (default: `x-ai/grok-voice-tts-1.0`)
    - Voice (default: `eve`; options: `eve`, `ara`, `rex`, `sal`, `leo`)
-6. Write `say_config.json`
+6. Write `speak_config.json`
 
 All files land in `~/.config/opencode/tools/` and become available to OpenCode on the next launch.
 
@@ -51,13 +51,13 @@ All files land in `~/.config/opencode/tools/` and become available to OpenCode o
 bash uninstall.sh
 ```
 
-Removes tool files (`say.py`, `say.ts`, `say_config.json`). The shared venv is **not removed** (other tools may use it).
+Removes tool files (`speak.py`, `speak.ts`, `speak_config.json`). The shared venv is **not removed** (other tools may use it).
 
 ## Available Tools
 
 | Tool | Purpose |
 |------|---------|
-| `say` | Convert text to speech and play it through the system audio player |
+| `speak` | Convert text to speech and play it through the system audio player |
 
 ## Example Usage in OpenCode
 
@@ -66,14 +66,14 @@ Removes tool files (`say.py`, `say.ts`, `say_config.json`). The shared venv is *
 
 [AI analyzes completed work, summarizes]
 
-[AI calls say with text="Added three tests for the calculator, all pass.
+[AI calls speak with text="Added three tests for the calculator, all pass.
 Linter found no errors. Done."]
 
 → {"status": "spoken", "player": "mpv", "format": "mp3", "chars": 78}
 
 > Read the full contents of README.md out loud
 
-[AI calls say with the full README.md text — user explicitly asked
+[AI calls speak with the full README.md text — user explicitly asked
 to hear everything]
 
 → {"status": "spoken", "player": "mpv", "format": "mp3", "chars": 3420}
@@ -81,7 +81,7 @@ to hear everything]
 
 ## Configuration
 
-File `~/.config/opencode/tools/say_config.json`:
+File `~/.config/opencode/tools/speak_config.json`:
 
 ```json
 {
@@ -101,11 +101,11 @@ File `~/.config/opencode/tools/say_config.json`:
 
 ### Changing the voice
 
-Edit `voice` in the config — no reinstall needed, changes apply on the next `say` call:
+Edit `voice` in the config — no reinstall needed, changes apply on the next `speak` call:
 
 ```bash
 # Switch to the "ara" voice:
-# Edit ~/.config/opencode/tools/say_config.json → "voice": "ara"
+# Edit ~/.config/opencode/tools/speak_config.json → "voice": "ara"
 ```
 
 ### Switching TTS models
@@ -116,17 +116,17 @@ Any OpenAI-compatible model supporting `/v1/audio/speech` should work. Just upda
 
 ```
 OpenCode Agent
-     │  say
+     │  speak
      ▼
 ┌──────────────────────────────┐
-│  say.ts      (TypeScript)    │  ~/.config/opencode/tools/
+│  speak.ts    (TypeScript)    │  ~/.config/opencode/tools/
 │  Thin wrapper: Zod schema,   │
 │  calls Python via Bun.spawn  │
 │  + JSON stdin/stdout         │
 └──────────────┬───────────────┘
                │ JSON over stdin/stdout
 ┌──────────────▼───────────────┐
-│  say.py      (Python)        │  ~/.config/opencode/tools/
+│  speak.py    (Python)        │  ~/.config/opencode/tools/
 │                               │
 │  openai client ── TTS API    │
 │  subprocess ───── audio play │

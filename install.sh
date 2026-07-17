@@ -2,8 +2,8 @@
 set -euo pipefail
 
 # =========================================================================
-# install.sh — Say (TTS) Tool installer for OpenCode
-# Installs say.py / say.ts into ~/.config/opencode/tools/ with shared venv.
+# install.sh — Speak (TTS) Tool installer for OpenCode
+# Installs speak.py / speak.ts into ~/.config/opencode/tools/ with shared venv.
 # =========================================================================
 
 OPENCODE_DIR="${HOME}/.config/opencode"
@@ -130,7 +130,7 @@ check_packages() {
 main() {
     echo ""
     echo "========================================"
-    echo "  OpenCode Say (TTS) Tool Installer"
+    echo "  OpenCode Speak (TTS) Tool Installer"
     echo "========================================"
     echo ""
 
@@ -220,12 +220,12 @@ main() {
 
     # --- Copy tool files ---
     log "Copying tool files to $TOOLS_DIR ..."
-    cp -v "$SCRIPT_DIR/say.py" "$TOOLS_DIR/say.py"
-    cp -v "$SCRIPT_DIR/say.ts" "$TOOLS_DIR/say.ts"
+    cp -v "$SCRIPT_DIR/speak.py" "$TOOLS_DIR/speak.py"
+    cp -v "$SCRIPT_DIR/speak.ts" "$TOOLS_DIR/speak.ts"
 
     # --- Write config ---
     log "Writing config..."
-    cat > "$TOOLS_DIR/say_config.json" <<EOF
+    cat > "$TOOLS_DIR/speak_config.json" <<EOF
 {
   "base_url": "$TTS_BASE_URL",
   "api_key": "$TTS_API_KEY",
@@ -233,7 +233,7 @@ main() {
   "voice": "$TTS_VOICE"
 }
 EOF
-    log "Config written to $TOOLS_DIR/say_config.json"
+    log "Config written to $TOOLS_DIR/speak_config.json"
     log "Venv python: $VENV_PYTHON"
 
     echo ""
@@ -242,9 +242,9 @@ EOF
     echo -e "${GREEN}  ✅  INSTALLATION COMPLETE!${NC}"
     echo ""
     echo -e "  ${GREEN}Available tools:${NC}"
-    echo "    say  — Convert text to speech and play it to the user"
+    echo "    speak  — Convert text to speech and play it to the user"
     echo ""
-    echo -e "  ${GREEN}Config:${NC} $TOOLS_DIR/say_config.json"
+    echo -e "  ${GREEN}Config:${NC} $TOOLS_DIR/speak_config.json"
     echo -e "${GREEN}============================================${NC}"
 }
 

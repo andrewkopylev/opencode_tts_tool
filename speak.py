@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""say.py — TTS backend for OpenCode 'say' tool.
+"""speak.py — TTS backend for OpenCode 'speak' tool.
 
 Reads JSON from stdin, calls a TTS API (OpenAI-compatible) to synthesize
 speech, then plays the audio through a system audio player.
@@ -15,7 +15,7 @@ import sys
 import tempfile
 from pathlib import Path
 
-CONFIG_PATH = Path.home() / ".config" / "opencode" / "tools" / "say_config.json"
+CONFIG_PATH = Path.home() / ".config" / "opencode" / "tools" / "speak_config.json"
 
 
 def load_config() -> dict:
@@ -64,7 +64,7 @@ def play_audio(file_path: str, player: str) -> None:
         pass
 
 
-def handle_say(payload: dict) -> str:
+def handle_speak(payload: dict) -> str:
     config = load_config()
     text = payload.get("text", "")
 
@@ -129,7 +129,7 @@ def handle_say(payload: dict) -> str:
         })
 
 
-COMMANDS = {"say": handle_say}
+COMMANDS = {"speak": handle_speak}
 
 
 def main() -> None:

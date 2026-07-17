@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # =========================================================================
-# uninstall.sh — Say (TTS) Tool uninstaller for OpenCode
+# uninstall.sh — Speak (TTS) Tool uninstaller for OpenCode
 # Removes tool files; shared venv and user data are left untouched.
 # =========================================================================
 
@@ -19,12 +19,12 @@ warn() { echo -e "${YELLOW}[WARN]${NC}  $*"; }
 
 echo ""
 echo "========================================"
-echo "  OpenCode Say (TTS) Tool Uninstaller"
+echo "  OpenCode Speak (TTS) Tool Uninstaller"
 echo "========================================"
 echo ""
 
-log "Removing say tool files..."
-rm -f "$TOOLS_DIR/say.py" "$TOOLS_DIR/say.ts" "$TOOLS_DIR/say_config.json"
+log "Removing speak tool files..."
+rm -f "$TOOLS_DIR/speak.py" "$TOOLS_DIR/speak.ts" "$TOOLS_DIR/speak_config.json"
 log "Tool files removed."
 
 echo ""
